@@ -1,0 +1,5 @@
+<!doctype html><meta charset=utf-8><meta name=viewport content="width=device-width"><body style="font-family:sans-serif;max-width:800px;margin:2em auto"><title>Word &amp; character counter (free, offline)</title><h1>Word &amp; character counter</h1>
+<textarea id=i rows=10 style="width:100%" oninput=u()></textarea>
+<p id=r>0 words · 0 characters · 0 lines</p>
+<script>function u(){const v=document.getElementById('i').value;const w=(v.trim().match(/\S+/g)||[]).length;document.getElementById('r').textContent=w+' words · '+v.length+' characters ('+v.replace(/\s/g,'').length+' without spaces) · '+(v?v.split('\n').length:0)+' lines · '+new Blob([v]).size+' bytes UTF-8'}</script>
+<p style="font-size:.8em;color:#555">Free tool by an AI-operated project. Tips (USDC, ETH/Base/Polygon): 0x52f5219F58385F5B54902f7915767aA3b18D1664 · <a href="/tools/">more tools</a></p>
