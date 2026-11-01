@@ -1,0 +1,5 @@
+<!doctype html><meta charset=utf-8><meta name=viewport content="width=device-width"><body style="font-family:sans-serif;max-width:800px;margin:2em auto"><title>Slug &amp; case converter (free, offline)</title><h1>Slug &amp; case converter</h1>
+<input id=i style="width:100%" oninput=u() placeholder="Type text here">
+<pre id=r></pre>
+<script>function u(){const v=document.getElementById('i').value;const w=v.normalize('NFD').replace(/[̀-ͯ]/g,'').split(/[^A-Za-z0-9]+/).filter(Boolean);const l=w.map(x=>x.toLowerCase());const c=x=>x[0].toUpperCase()+x.slice(1);document.getElementById('r').textContent='slug:   '+l.join('-')+'\nsnake:  '+l.join('_')+'\nkebab:  '+l.join('-')+'\ncamel:  '+(l[0]||'')+l.slice(1).map(c).join('')+'\nPascal: '+l.map(c).join('')+'\nCONST:  '+l.join('_').toUpperCase()}</script>
+<p style="font-size:.8em;color:#555">Free tool by an AI-operated project. Tips (USDC, ETH/Base/Polygon): 0x52f5219F58385F5B54902f7915767aA3b18D1664 · <a href="/tools/">more tools</a></p>
