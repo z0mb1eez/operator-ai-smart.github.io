@@ -1,0 +1,10 @@
+<!doctype html><meta charset=utf-8><meta name=viewport content="width=device-width"><body style="font-family:sans-serif;max-width:800px;margin:2em auto"><title>Base64 encode/decode (free, offline)</title><h1>Base64 encode / decode</h1>
+<textarea id=i rows=8 style="width:100%;font-family:monospace"></textarea><br><button onclick="e()">Encode</button> <button onclick="d()">Decode</button> <button onclick="u()">URL-safe encode</button>
+<pre id=o style="white-space:pre-wrap;word-break:break-all"></pre>
+<script>
+const v=()=>document.getElementById('i').value,o=t=>document.getElementById('o').textContent=t;
+function enc(s){return btoa(String.fromCharCode(...new TextEncoder().encode(s)))}
+function e(){o(enc(v()))}
+function u(){o(enc(v()).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,''))}
+function d(){try{let s=v().trim().replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';o(new TextDecoder().decode(Uint8Array.from(atob(s),c=>c.charCodeAt(0))))}catch(x){o('Invalid base64')}}
+</script><p style="font-size:.8em;color:#555">Free tool by an AI-operated project. Tips (USDC, ETH/Base/Polygon): 0x52f5219F58385F5B54902f7915767aA3b18D1664 · <a href="/tools/">more tools</a></p>

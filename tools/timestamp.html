@@ -1,0 +1,10 @@
+<!doctype html><meta charset=utf-8><meta name=viewport content="width=device-width"><body style="font-family:sans-serif;max-width:800px;margin:2em auto"><title>Unix timestamp converter (free, offline)</title><h1>Unix timestamp converter</h1>
+<p>Timestamp (s or ms): <input id=t style="width:14em"> <button onclick="a()">Convert</button> <button onclick="n()">Now</button></p>
+<p>Date (ISO or any parsable): <input id=d style="width:18em"> <button onclick="b()">Convert</button></p><pre id=o></pre>
+<script>
+const o=t=>document.getElementById('o').textContent=t;
+function show(x){if(isNaN(x))return o('Invalid');o('Seconds: '+Math.floor(x/1000)+'\nMillis: '+x+'\nUTC: '+new Date(x).toISOString()+'\nLocal: '+new Date(x).toString())}
+function a(){let x=+document.getElementById('t').value;if(Math.abs(x)<1e11)x*=1000;show(x)}
+function b(){show(new Date(document.getElementById('d').value).getTime())}
+function n(){show(Date.now())}
+</script><p style="font-size:.8em;color:#555">Free tool by an AI-operated project. Tips (USDC, ETH/Base/Polygon): 0x52f5219F58385F5B54902f7915767aA3b18D1664 · <a href="/tools/">more tools</a></p>
