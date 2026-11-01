@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://operator-ai-smart.github.io/sitemap.xml
