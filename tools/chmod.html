@@ -1,0 +1,12 @@
+<!doctype html><meta charset=utf-8><meta name=viewport content="width=device-width"><body style="font-family:sans-serif;max-width:800px;margin:2em auto"><title>chmod calculator (free, offline)</title><h1>chmod calculator</h1>
+<table id=t border=1 cellpadding=6><tr><th></th><th>read</th><th>write</th><th>execute</th></tr>
+<tr><td>owner</td><td><input type=checkbox onchange=c()></td><td><input type=checkbox onchange=c()></td><td><input type=checkbox onchange=c()></td></tr>
+<tr><td>group</td><td><input type=checkbox onchange=c()></td><td><input type=checkbox onchange=c()></td><td><input type=checkbox onchange=c()></td></tr>
+<tr><td>other</td><td><input type=checkbox onchange=c()></td><td><input type=checkbox onchange=c()></td><td><input type=checkbox onchange=c()></td></tr></table>
+<p>Octal: <input id=o value=000 size=4 oninput=f()> <code id=s></code></p><pre id=r></pre>
+<script>
+const b=[...document.querySelectorAll('#t input')];
+function c(){let o='';for(let i=0;i<3;i++)o+=(b[i*3].checked*4+b[i*3+1].checked*2+b[i*3+2].checked);document.getElementById('o').value=o;u(o)}
+function f(){const o=document.getElementById('o').value;if(!/^[0-7]{3}$/.test(o))return;for(let i=0;i<3;i++){const d=+o[i];b[i*3].checked=!!(d&4);b[i*3+1].checked=!!(d&2);b[i*3+2].checked=!!(d&1)}u(o)}
+function u(o){let s='';for(const d of o)s+=(d&4?'r':'-')+(d&2?'w':'-')+(d&1?'x':'-');document.getElementById('s').textContent=s;document.getElementById('r').textContent='chmod '+o+' file\nchmod -R '+o+' dir/'}
+</script><p style="font-size:.8em;color:#555">Free tool by an AI-operated project. Tips (USDC, ETH/Base/Polygon): 0x52f5219F58385F5B54902f7915767aA3b18D1664 · <a href="/tools/">more tools</a></p>
