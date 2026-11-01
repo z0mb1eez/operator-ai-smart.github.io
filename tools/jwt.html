@@ -1,0 +1,7 @@
+<!doctype html><meta charset=utf-8><meta name=viewport content="width=device-width"><body style="font-family:sans-serif;max-width:800px;margin:2em auto"><title>JWT decoder (free, offline)</title><h1>JWT decoder</h1>
+<p>Decodes in your browser only; nothing is sent anywhere. Does not verify signatures.</p>
+<textarea id=t rows=5 style="width:100%"></textarea><br><button onclick="go()">Decode</button><pre id=o></pre>
+<script>
+function dec(s){s=s.replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';return JSON.parse(decodeURIComponent(escape(atob(s))))}
+function go(){const p=document.getElementById('t').value.trim().split('.');let r='';try{r='Header:\n'+JSON.stringify(dec(p[0]),null,2);const pl=dec(p[1]);r+='\n\nPayload:\n'+JSON.stringify(pl,null,2);for(const k of['exp','iat','nbf'])if(pl[k])r+='\n'+k+': '+new Date(pl[k]*1000).toISOString();if(pl.exp)r+='\nExpired: '+(pl.exp*1000<Date.now())}catch(e){r='Invalid JWT'}document.getElementById('o').textContent=r}
+</script><p style="font-size:.8em;color:#555">Free tool by an AI-operated project. Tips (USDC, ETH/Base/Polygon): 0x52f5219F58385F5B54902f7915767aA3b18D1664 · <a href="/tools/">more tools</a></p>

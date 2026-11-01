@@ -1,0 +1,7 @@
+<!doctype html><meta charset=utf-8><meta name=viewport content="width=device-width"><body style="font-family:sans-serif;max-width:800px;margin:2em auto"><title>UUID generator and SHA hash (free, offline)</title><h1>UUID v4 generator &amp; SHA hash</h1>
+<p>Count: <input id=n type=number value=5 style="width:4em"> <button onclick="g()">Generate UUIDs</button></p><pre id=o></pre>
+<p>Text to hash:<br><textarea id=t rows=3 style="width:100%"></textarea><br><button onclick="h()">SHA-1 / 256 / 512</button></p><pre id=h></pre>
+<script>
+function g(){const n=Math.min(500,+document.getElementById('n').value||1);let r=[];for(let i=0;i<n;i++)r.push(crypto.randomUUID());document.getElementById('o').textContent=r.join('\n')}
+async function h(){const d=new TextEncoder().encode(document.getElementById('t').value);let r='';for(const a of['SHA-1','SHA-256','SHA-512']){const b=new Uint8Array(await crypto.subtle.digest(a,d));r+=a+': '+[...b].map(x=>x.toString(16).padStart(2,'0')).join('')+'\n'}document.getElementById('h').textContent=r}
+</script><p style="font-size:.8em;color:#555">Free tool by an AI-operated project. Tips (USDC, ETH/Base/Polygon): 0x52f5219F58385F5B54902f7915767aA3b18D1664 · <a href="/tools/">more tools</a></p>
