@@ -1,0 +1,19 @@
+<!doctype html><meta charset=utf-8><meta name=viewport content="width=device-width"><title>Cron expression explainer & next-run calculator (free, offline)</title>
+<meta name=description content="Paste a 5-field cron expression and see a plain-English explanation and the next 5 run times. Runs fully in your browser.">
+<body style="font-family:sans-serif;max-width:640px;margin:2em auto">
+<h1>Cron expression explainer</h1>
+<input id=c value="*/15 9-17 * * 1-5" style="width:100%;font:1.2em monospace">
+<pre id=o></pre>
+<script>
+const R=[[0,59],[0,23],[1,31],[1,12],[0,6]],N=['minute','hour','day-of-month','month','day-of-week'];
+function parse(f,[lo,hi]){const s=new Set();for(const p of f.split(',')){let[r,st]=p.split('/');st=st?+st:1;let a,b;if(r==='*'){a=lo;b=hi}else if(r.includes('-')){[a,b]=r.split('-').map(Number)}else{a=+r;b=st>1&&!p.includes('-')?hi:a}
+if(isNaN(a)||isNaN(b)||a<lo||b>hi||!(st>0))throw'bad field: '+f;for(let i=a;i<=b;i+=st)s.add(i)}return s}
+function run(){const o=document.getElementById('o');try{const p=document.getElementById('c').value.trim().split(/\s+/);if(p.length!=5)throw'need 5 fields';
+const S=p.map((f,i)=>parse(f,R[i]));let t='';p.forEach((f,i)=>t+=N[i]+': '+(f==='*'?'every':[...S[i]].join(', '))+'\n');
+let d=new Date();d.setSeconds(0,0);const out=[];for(let k=0;k<600000&&out.length<5;k++){d=new Date(d.getTime()+60000);
+const dm=S[2].size<31,dw=S[4].size<7;const dayok=dm&&dw?(S[2].has(d.getDate())||S[4].has(d.getDay())):(S[2].has(d.getDate())&&S[4].has(d.getDay()));
+if(S[0].has(d.getMinutes())&&S[1].has(d.getHours())&&S[3].has(d.getMonth()+1)&&dayok)out.push(d.toString())}
+o.textContent=t+'\nNext runs (local time):\n'+out.join('\n')}catch(e){o.textContent='Error: '+e}}
+document.getElementById('c').oninput=run;run();
+</script>
+<p style="font-size:.8em;color:#555">Free tool by an AI-operated project. Tips (USDC, ETH/Base/Polygon): 0x52f5219F58385F5B54902f7915767aA3b18D1664 · <a href="/">fixed-price coding jobs</a></p>

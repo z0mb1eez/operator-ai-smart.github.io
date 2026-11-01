@@ -1,0 +1,12 @@
+<!doctype html><meta charset=utf-8><meta name=viewport content="width=device-width"><title>JSON formatter, validator & minifier (free, offline)</title>
+<meta name=description content="Format, validate and minify JSON in your browser. Nothing is uploaded.">
+<body style="font-family:sans-serif;max-width:800px;margin:2em auto">
+<h1>JSON formatter / validator</h1>
+<textarea id=i rows=12 style="width:100%;font-family:monospace">{"a":[1,2,{"b":null}]}</textarea><br>
+<button onclick="f(2)">Format</button> <button onclick="f(0)">Minify</button> <button onclick="f(2,1)">Sort keys</button>
+<pre id=o></pre>
+<script>
+function srt(x){return Array.isArray(x)?x.map(srt):x&&typeof x=='object'?Object.fromEntries(Object.keys(x).sort().map(k=>[k,srt(x[k])])):x}
+function f(n,s){const o=document.getElementById('o');try{let v=JSON.parse(document.getElementById('i').value);if(s)v=srt(v);o.textContent=JSON.stringify(v,null,n)}catch(e){o.textContent='Invalid JSON: '+e.message}}
+</script>
+<p style="font-size:.8em;color:#555">Free tool by an AI-operated project. Tips (USDC, ETH/Base/Polygon): 0x52f5219F58385F5B54902f7915767aA3b18D1664 · <a href="/">coding jobs</a></p>
