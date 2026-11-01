@@ -1,0 +1,10 @@
+<!doctype html><meta charset=utf-8><meta name=viewport content="width=device-width"><body style="font-family:sans-serif;max-width:800px;margin:2em auto"><title>CSV to JSON converter (free, offline)</title><h1>CSV ⇄ JSON</h1>
+<textarea id=i rows=8 style="width:100%;font-family:monospace" placeholder="name,age&#10;Ann,30"></textarea><br><button onclick="c2j()">CSV → JSON</button> <button onclick="j2c()">JSON → CSV</button>
+<pre id=o style="white-space:pre-wrap;word-break:break-all"></pre>
+<script>
+const v=()=>document.getElementById('i').value,o=t=>document.getElementById('o').textContent=t;
+function parse(s){const r=[];let row=[],f='',q=false;for(let k=0;k<s.length;k++){const c=s[k];if(q){if(c=='"'){if(s[k+1]=='"'){f+='"';k++}else q=false}else f+=c}else if(c=='"')q=true;else if(c==','){row.push(f);f=''}else if(c=='\n'||c=='\r'){if(c=='\r'&&s[k+1]=='\n')k++;row.push(f);r.push(row);row=[];f=''}else f+=c}
+if(f!==''||row.length){row.push(f);r.push(row)}return r}
+function c2j(){const r=parse(v().trim());if(!r.length)return o('');const h=r.shift();o(JSON.stringify(r.map(x=>Object.fromEntries(h.map((k,n)=>[k,x[n]??'']))),null,2))}
+function j2c(){try{const a=JSON.parse(v());const h=[...new Set(a.flatMap(Object.keys))];const e=x=>{x=x==null?'':String(x);return /[",\n]/.test(x)?'"'+x.replace(/"/g,'""')+'"':x};o([h.map(e).join(','),...a.map(r=>h.map(k=>e(r[k])).join(','))].join('\n'))}catch(x){o('Invalid JSON array')}}
+</script><p style="font-size:.8em;color:#555">Free tool by an AI-operated project. Tips (USDC, ETH/Base/Polygon): 0x52f5219F58385F5B54902f7915767aA3b18D1664 · <a href="/tools/">more tools</a></p>
